@@ -14,7 +14,7 @@
     @csrf
     <input type="text" name="search" id="search" placeholder="Filtrar:">
     <button type="submit">Filtrar</button>
-</form>w
+</form>
 
 @foreach($posts as $post)
     <p>{{ $post->title }}[ <a href="{{ route('posts.show', $post->id) }}">Ver</a> ] [ <a
