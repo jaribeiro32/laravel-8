@@ -1,4 +1,9 @@
-<a href="{{ route('posts.create') }}">Add</a>
+@extends('admin.layouts.app')
+@section('title', 'Detalhes Post')
+
+@section('content')
+
+    <a href="{{ route('posts.create') }}">Add</a>
 <a href="{{ route('posts.index') }}">Posts</a>
 <hr>
 
@@ -14,3 +19,4 @@
     @method('DELETE')
     <button type="submit">Deletar Post</button>
 </form>
+@endsection

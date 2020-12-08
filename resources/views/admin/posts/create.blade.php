@@ -1,4 +1,9 @@
-<a href="{{ route('posts.index') }}">Posts</a>
+@extends('admin.layouts.app')
+@section('title', 'Novo Posts')
+
+@section('content')
+
+    <a href="{{ route('posts.index') }}">Posts</a>
 <hr>
 
 <h1>Novo Post</h1>
@@ -11,3 +16,4 @@
     @include('admin.posts._partials.form')
 
 </form>
+@endsection
