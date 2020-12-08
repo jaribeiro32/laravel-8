@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::orderBy('id', 'DESC')->paginate();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -73,5 +74,16 @@ class PostController extends Controller
         $post->update($request->all());
 
         return redirect()->route('posts.index')->with('message', 'Registro atualizado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+
+        $posts = Post::where('title', 'LIKE', "%{$request->search}%")
+            ->orWhere('content', 'LIKE', "%{$request->search}%")
+            ->paginate();
+
+        return view('admin.posts.index', compact('posts', 'filters'));
     }
 }
