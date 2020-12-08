@@ -24,7 +24,7 @@ class PostController extends Controller
         $data = $request->all();
         Post::create($data);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('message', 'Registro criado com sucesso!');
     }
 
     public function show($id)
@@ -49,5 +49,29 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index')->with('message', 'Registro removido com sucesso!');
+    }
+
+    public function edit($id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            return redirect()->route('posts.index');
+        }
+
+        return view('admin.posts.edit', compact('post'));
+    }
+
+    public function update(StoreUpdatePostRequest $request, $id)
+    {
+        $post = Post::find($id);
+
+        if (!$post) {
+            return redirect()->route('posts.index');
+        }
+
+        $post->update($request->all());
+
+        return redirect()->route('posts.index')->with('message', 'Registro atualizado com sucesso!');
     }
 }
